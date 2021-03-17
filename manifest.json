@@ -1,0 +1,16 @@
+{
+  "name": "Capture Chrome Extension",
+  "description" : "Base Level Extension",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "browser_action": {
+    "default_popup": "popup.html"
+  },
+  "permissions": [],
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": [ "content.js" ]
+    }
+  ]
+}
