@@ -15,7 +15,7 @@ document.addEventListener('mouseup', e => {
     highlignt.style.backgroundColor = 'yellow';
     highlignt.style.position = 'relative';
     range.surroundContents(highlignt);
-  } else if (selection) { // text highlighted 
+  } else if (selection.toString()) { // text highlighted 
     if (selection.anchorNode.nodeType === 3) { // is a text node
       const contents = range.extractContents();
       range.deleteContents();
