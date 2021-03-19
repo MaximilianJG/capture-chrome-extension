@@ -6,18 +6,18 @@ document.addEventListener('mouseup', e => {
   if (!window.getSelection) { return; } // return if browser doesn't support selection for some reason
   const selection = window.getSelection();
   const range = selection.getRangeAt(0);
-  if (e.target && e.target.id === 'captureButton') { // highlight button clicked
+  if (e.target && (e.target.id === 'captureButton' || e.target.id === 'captureButtonImage')) { // highlight button clicked
+    e.stopPropagation();
+    const selection = window.getSelection();
+    const range = selection.getRangeAt(0);
     document.getElementById('captureButton').remove();
-    const selectionText = selection.toString();
     const highlignt = document.createElement('span');
     highlignt.style.backgroundColor = 'yellow';
-    // highlignt.textContent = selectionText;
     highlignt.style.position = 'relative';
     range.surroundContents(highlignt);
-  } else if (selection.toString()) { // text highlighted 
+  } else if (selection) { // text highlighted 
     if (selection.anchorNode.nodeType === 3) { // is a text node
       const contents = range.extractContents();
-      console.log(contents.toString());
       range.deleteContents();
       range.insertNode(captureButton);
       range.insertNode(contents);

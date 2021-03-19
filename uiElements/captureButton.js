@@ -1,7 +1,13 @@
 function makeCaptureButton() {
   const captureButton = document.createElement('button');
   captureButton.id = 'captureButton';
-  captureButton.innerHTML = `<img src='${chrome.runtime.getURL('assets/capture16.png')}' alt='capture' />`;
+  captureButton.innerHTML = `
+    <img
+      src='${chrome.runtime.getURL('assets/capture16.png')}'
+      alt='capture'
+      id='captureButtonImage'
+    />
+  `;
   captureButton.style.position = 'absolute';
   captureButton.style.backgroundColor = '#FFFFFF';
   captureButton.style.border = '0.5px solid #D8D7D5';
