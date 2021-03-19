@@ -4,13 +4,24 @@
   "version": "0.0.1",
   "manifest_version": 2,
   "browser_action": {
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_icon": "assets/capture.png"
+  },
+  "icons": {
+    "16": "assets/capture16.png",
+    "48": "assets/capture48.png",
+    "128": "assets/capture128.png"
   },
   "permissions": [],
   "content_scripts": [
     {
       "matches": ["http://*/*", "https://*/*"],
-      "js": [ "content.js" ]
+      "js": [
+        "thirdParty/jquery-3.6.0.min.js",
+        "uiElements/captureButton.js",
+        "content.js"
+      ]
     }
-  ]
+  ],
+  "web_accessible_resources": ["assets/capture16.png"]
 }
