@@ -10,6 +10,13 @@ document.addEventListener('mouseup', e => {
   if (e.target && (e.target.id === 'captureButton' || e.target.id === 'captureButtonImage')) { // highlight button clicked
     e.stopPropagation();
     removeCaptureButtonFromDOM();
+    postSelection({
+      selectionText: selection.toString(),
+      pageUrl: window.location.href,
+      imageSrc: getArticleImage(),
+      siteName: getSiteName(),
+      title: getArticleTitle(),
+    });
     range.surroundContents(highlight);
   } else if (selection.toString()) { // text highlighted 
     if (selection.anchorNode.nodeType === 3) { // is a text node

@@ -25,6 +25,7 @@
       "js": [
         "thirdParty/jquery-3.6.0.min.js",
         "api.js",
+        "scrapers.js",
         "uiElements/captureButton.js",
         "content.js"
       ]

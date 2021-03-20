@@ -3,7 +3,7 @@ let userId;
 
 chrome.runtime.sendMessage({ type: "GET_COOKIE" }, response => {
   if (response && response.type === 'COOKIE' && response.cookie) {
-    userId = response.cookie.value;
+    userId = response.cookie.value; // this value is encryped and is causing issues
   }
 });
 
