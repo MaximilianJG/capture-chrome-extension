@@ -3,9 +3,12 @@ function makeCaptureButton() {
   captureButton.id = 'captureButton';
   captureButton.innerHTML = `
     <img
-      src='${chrome.runtime.getURL('assets/capture16.png')}'
+      src='${chrome.runtime.getURL('assets/capture32.png')}'
       alt='capture'
       id='captureButtonImage'
+      width='32'
+      height='32'
+      style='padding: 6px 3px 5px'
     />
   `;
   captureButton.style.position = 'absolute';
@@ -23,4 +26,11 @@ function removeCaptureButtonFromDOM() {
     if (button) {
       button.remove();
     }
+}
+
+function makeHighlight() {
+  const highlignt = document.createElement('span');
+  highlignt.style.backgroundColor = 'yellow';
+  highlignt.style.position = 'relative';
+  return highlignt;
 }

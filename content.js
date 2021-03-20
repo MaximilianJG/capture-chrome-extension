@@ -1,6 +1,7 @@
 const highlignts = {};
 
 const captureButton = makeCaptureButton();
+const highlight = makeHighlight();
 
 document.addEventListener('mouseup', e => {
   if (!window.getSelection) { return; } // return if browser doesn't support selection for some reason
@@ -8,13 +9,8 @@ document.addEventListener('mouseup', e => {
   const range = selection.getRangeAt(0);
   if (e.target && (e.target.id === 'captureButton' || e.target.id === 'captureButtonImage')) { // highlight button clicked
     e.stopPropagation();
-    const selection = window.getSelection();
-    const range = selection.getRangeAt(0);
-    document.getElementById('captureButton').remove();
-    const highlignt = document.createElement('span');
-    highlignt.style.backgroundColor = 'yellow';
-    highlignt.style.position = 'relative';
-    range.surroundContents(highlignt);
+    removeCaptureButtonFromDOM();
+    range.surroundContents(highlight);
   } else if (selection.toString()) { // text highlighted 
     if (selection.anchorNode.nodeType === 3) { // is a text node
       const contents = range.extractContents();

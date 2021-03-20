@@ -12,16 +12,23 @@
     "48": "assets/capture48.png",
     "128": "assets/capture128.png"
   },
-  "permissions": [],
+  "permissions": [
+    "cookies",
+    "*://capture-maximilianjg.herokuapp.com/"
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  },
   "content_scripts": [
     {
       "matches": ["http://*/*", "https://*/*"],
       "js": [
         "thirdParty/jquery-3.6.0.min.js",
+        "api.js",
         "uiElements/captureButton.js",
         "content.js"
       ]
     }
   ],
-  "web_accessible_resources": ["assets/capture16.png"]
+  "web_accessible_resources": ["assets/capture32.png"]
 }
