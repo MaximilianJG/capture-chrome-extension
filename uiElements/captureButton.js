@@ -27,10 +27,3 @@ function removeCaptureButtonFromDOM() {
       button.remove();
     }
 }
-
-function makeHighlight() {
-  const highlignt = document.createElement('span');
-  highlignt.style.backgroundColor = 'yellow';
-  highlignt.style.position = 'relative';
-  return highlignt;
-}

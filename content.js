@@ -1,12 +1,28 @@
-const highlignts = {};
+let pageHasHiglights = false;
 
 const captureButton = makeCaptureButton();
-const highlight = makeHighlight();
+
+function getSelectionParentElement() {
+  let parentEl = null, sel;
+  if (window.getSelection) {
+      sel = window.getSelection();
+      if (sel.rangeCount) {
+          parentEl = sel.getRangeAt(0).commonAncestorContainer;
+          if (parentEl.nodeType != 1) {
+              parentEl = parentEl.parentNode;
+          }
+      }
+  } else if ( (sel = document.selection) && sel.type != "Control") {
+      parentEl = sel.createRange().parentElement();
+  }
+  return parentEl;
+}
+
 
 document.addEventListener('mouseup', e => {
   if (!window.getSelection) { return; } // return if browser doesn't support selection for some reason
   const selection = window.getSelection();
-  const range = selection.getRangeAt(0);
+  const range = selection.getRangeAt(0).cloneRange();
   if (e.target && (e.target.id === 'captureButton' || e.target.id === 'captureButtonImage')) { // highlight button clicked
     e.stopPropagation();
     removeCaptureButtonFromDOM();
@@ -16,17 +32,17 @@ document.addEventListener('mouseup', e => {
       imageSrc: getArticleImage(),
       siteName: getSiteName(),
       title: getArticleTitle(),
+    }, response => {
+      const { id } = response;
+      pageHasHiglights = true;
+      const highlight = makeHighlight(id);
+      range.surroundContents(highlight);
+      const parent = getSelectionParentElement();
+      parent.style.position = 'relative';
+      parent.appendChild(makeCommentPopup(id));
     });
-    range.surroundContents(highlight);
-  } else if (selection.toString()) { // text highlighted 
-    if (selection.anchorNode.nodeType === 3) { // is a text node
-      const contents = range.extractContents();
-      range.deleteContents();
-      range.insertNode(captureButton);
-      range.insertNode(contents);
-    } else {
-      console.log(selection.anchorNode.nodeType, selection.anchorNode.nodeName);
-    }
+  } else if (selection.toString() && selection.anchorNode.nodeType === 3) { // text highlighted 
+    range.endContainer.parentNode.insertBefore(captureButton, range.endContainer.nextSibling);
   } else { // any other click on the page
     removeCaptureButtonFromDOM();
   }

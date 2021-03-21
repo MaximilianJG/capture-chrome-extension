@@ -26,6 +26,8 @@
         "thirdParty/jquery-3.6.0.min.js",
         "api.js",
         "scrapers.js",
+        "uiElements/commentPopup.js",
+        "uiElements/highlight.js",
         "uiElements/captureButton.js",
         "content.js"
       ]

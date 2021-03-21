@@ -1,7 +1,11 @@
 const getCookie = (cb = () => ({})) => {
   chrome.cookies.getAll({ domain: 'capture-maximilianjg.herokuapp.com' }, cookies => {
+    console.log(cookies);
     if (cookies.length) {
-      cb(cookies[0]);
+      const userIdCookie = cookies.find(c => c.name === 'capture_user_id');
+      if (userIdCookie) {
+        cb(cookies[0]);
+      }
     }
   });
 }

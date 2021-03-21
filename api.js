@@ -1,4 +1,5 @@
-const baseUrl = 'https://capture-maximilianjg.herokuapp.com/api/v1/quotes';
+const baseUrl = 'https://capture-maximilianjg.herokuapp.com/api/v1/';
+// const baseUrl = 'https://92926f878562.ngrok.io/api/v1/';
 let userId;
 
 chrome.runtime.sendMessage({ type: "GET_COOKIE" }, response => {
@@ -11,10 +12,12 @@ function post(endpoint, body, cb = () => ({})) {
   const http = new XMLHttpRequest();
   const url = `${baseUrl}${endpoint}`;
   http.open('POST', url, true);
-  http.setRequestHeader('Content-type', 'application/json');
+  http.setRequestHeader('Content-Type', 'application/json');
 
   http.onreadystatechange = () => {
-    cb(http.response);
+    if (http.readyState === 4) {
+      cb(http.response);
+    }
   }
   http.send(JSON.stringify(body));
 }
@@ -22,7 +25,7 @@ function post(endpoint, body, cb = () => ({})) {
 function postSelection({
   selectionText, pageUrl, imageSrc, siteName, title,
 }, cb) {
-  post('', {
+  post('sources', {
     general_post_request: {
       user_id: userId,
       quote_content: selectionText,
@@ -36,7 +39,7 @@ function postSelection({
 }
 
 function postSnippet({ selectionText, pageUrl }, cb) {
-  post('', {
+  post('quotes', {
     snippet_post_request: {
       user_id: userId,
       quote_content: selectionText,
@@ -46,7 +49,7 @@ function postSnippet({ selectionText, pageUrl }, cb) {
 }
 
 function postComment({ selectionText, pageUrl, comment }, cb) {
-  post('', {
+  post('comments', {
     comment_post_request: {
       user_id: userId,
       quote_content: selectionText,
@@ -57,7 +60,7 @@ function postComment({ selectionText, pageUrl, comment }, cb) {
 }
 
 function postTags({ pageUrl, tags }, cb) {
-  post('', {
+  post('tags', {
     tag_post_request: {
       user_id: userId,
       url_of_quote: pageUrl,
