@@ -5,10 +5,7 @@ function makeCaptureButton() {
     <img
       src='${chrome.runtime.getURL('assets/capture32.png')}'
       alt='capture'
-      id='captureButtonImage'
-      width='32'
-      height='32'
-      style='padding: 6px 3px 5px'
+      id='capture-button-image'
     />
   `;
 
@@ -16,7 +13,7 @@ function makeCaptureButton() {
 }
 
 function removeCaptureButtonFromDOM() {
-  const button = document.getElementById('captureButton');
+  const button = document.getElementById('capture-button');
     if (button) {
       button.remove();
     }

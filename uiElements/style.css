@@ -7,10 +7,40 @@ box-sizing: border-box;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
+#capture-button-image {
+  padding: 0;
+  margin: 6px 1px;
+  height: 32px;
+  width: 32px;
+  vertical-align: middle;
+}
+
 .capture-comment-popup {
   position: absolute;
   left: calc(50% - 100px);
   top: -45px;
+}
+
+.capture-comment-popup-content {
+  background-color: #FFF;
+  border: 1px solid #D8D7D5;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 2px; padding: 4px;
+}
+
+.capture-comment-popup-input {
+  background: #F6F8FA;
+  border: 0.5px solid #D8D7D5;
+  box-sizing: border-box;
+  border-radius: 2px;
+}
+
+.capture-comment-popup-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #AAA;
 }
 
 .capture-highlight {

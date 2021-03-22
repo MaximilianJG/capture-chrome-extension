@@ -23,7 +23,7 @@ document.addEventListener('mouseup', e => {
   if (!window.getSelection) { return; } // return if browser doesn't support selection for some reason
   const selection = window.getSelection();
   const range = selection.getRangeAt(0).cloneRange();
-  if (e.target && (e.target.id === 'captureButton' || e.target.id === 'captureButtonImage')) { // highlight button clicked
+  if (e.target && (e.target.id === 'capture-button' || e.target.id === 'capture-button-image')) { // highlight button clicked
     e.stopPropagation();
     removeCaptureButtonFromDOM();
     postSelection({
@@ -43,6 +43,8 @@ document.addEventListener('mouseup', e => {
     });
   } else if (selection.toString() && selection.anchorNode.nodeType === 3) { // text highlighted 
     range.endContainer.parentNode.insertBefore(captureButton, range.endContainer.nextSibling);
+  } else if (e.target && (e.target.className === 'capture-comment-popup-input')) {
+    // Do nothing so that comment popup doesn't get ripped from dom
   } else { // any other click on the page
     removeCaptureButtonFromDOM();
     hideCommentPopups();
