@@ -40,6 +40,7 @@ document.addEventListener('mouseup', e => {
       const parent = getSelectionParentElement();
       parent.style.position = 'relative';
       parent.appendChild(makeCommentPopup(id));
+      makeTagBox();
     });
   } else if (selection.toString() && selection.anchorNode.nodeType === 3) { // text highlighted 
     range.endContainer.parentNode.insertBefore(captureButton, range.endContainer.nextSibling);

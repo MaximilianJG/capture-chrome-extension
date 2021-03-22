@@ -1,5 +1,4 @@
 function makeCommentPopup(id) {
-  console.log(id);
   const popup = getHTML('commentPopup.html');
   popup.id = `capture-comment-popup-${id}`;
   popup.className = 'capture-comment-popup';

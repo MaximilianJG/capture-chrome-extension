@@ -31,6 +31,7 @@
         "uiElements/commentPopup.js",
         "uiElements/highlight.js",
         "uiElements/captureButton.js",
+        "uiElements/tagBox.js",
         "content.js"
       ]
     }

@@ -29,7 +29,7 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 2px; padding: 4px;
 }
 
-.capture-comment-popup-input {
+.capture-comment-popup-input, .capture-tag-box-input {
   background: #F6F8FA;
   border: 0.5px solid #D8D7D5;
   box-sizing: border-box;
@@ -51,4 +51,32 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
 .capture-highlight:hover {
   background-color: rgba(255, 184, 0, 0.41);
+}
+
+#capture-tag-box {
+  position: fixed;
+  right: 12px;
+  top: 12px;
+  z-index: 9999999999999999999999;
+  padding: 1rem;
+  background: #FFFFFF;
+  border: 1px solid #C5C5C5;
+  box-sizing: border-box;
+  box-shadow: 4px 4px 50px 5px rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+}
+
+.capture-tag-box-title {
+  width: 180px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.capture-tag-box-tag-icon {
+  vertical-align: text-bottom;
+  color: #AAA;
 }
