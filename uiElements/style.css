@@ -1,0 +1,24 @@
+#capture-button {
+position: absolute;
+background-color: #FFF;
+border: 0.5px solid #D8D7D5;
+border-radius: 100%;
+box-sizing: border-box;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.capture-comment-popup {
+  position: absolute;
+  left: calc(50% - 100px);
+  top: -45px;
+}
+
+.capture-highlight {
+  position: relative;
+  background-color: rgba(255, 230, 0, 0.41);
+  cursor: pointer;
+}
+
+.capture-highlight:hover {
+  background-color: rgba(255, 184, 0, 0.41);
+}

@@ -26,6 +26,8 @@
         "thirdParty/jquery-3.6.0.min.js",
         "api.js",
         "scrapers.js",
+        "uiElements/injectCss.js",
+        "uiElements/getHtml.js",
         "uiElements/commentPopup.js",
         "uiElements/highlight.js",
         "uiElements/captureButton.js",
@@ -33,5 +35,9 @@
       ]
     }
   ],
-  "web_accessible_resources": ["assets/capture32.png"]
+  "web_accessible_resources": [
+    "assets/capture32.png",
+    "uiElements/*.html",
+    "uiElements/*.css"
+  ]
 }

@@ -33,7 +33,7 @@ document.addEventListener('mouseup', e => {
       siteName: getSiteName(),
       title: getArticleTitle(),
     }, response => {
-      const { id } = response;
+      const { id } = JSON.parse(response);
       pageHasHiglights = true;
       const highlight = makeHighlight(id);
       range.surroundContents(highlight);
@@ -45,5 +45,6 @@ document.addEventListener('mouseup', e => {
     range.endContainer.parentNode.insertBefore(captureButton, range.endContainer.nextSibling);
   } else { // any other click on the page
     removeCaptureButtonFromDOM();
+    hideCommentPopups();
   }
 });
