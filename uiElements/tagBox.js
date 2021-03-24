@@ -8,7 +8,6 @@ function makeTag(tagText) {
 
 function makeTagBox(sourceId) {
   const tagBox = getHTML('tagBox.html');
-  tagBox.getElementsByClassName('capture-logo')[0].src = chrome.runtime.getURL('assets/capture32.png');
   tagBox.getElementsByClassName('capture-tag-box-title')[0].innerText = getArticleTitle();
   const form = tagBox.getElementsByTagName('form')[0];
 

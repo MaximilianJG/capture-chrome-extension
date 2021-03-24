@@ -53,6 +53,15 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   background-color: rgba(255, 184, 0, 0.41);
 }
 
+.capture-highlight.deleted {
+  background-color: transparent;
+  cursor: unset;
+}
+
+.capture-highlight:hover.deleted {
+  background-color: transparent;
+}
+
 #capture-tag-box {
   position: fixed;
   right: 12px;
@@ -94,6 +103,10 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
 #capture-tag-box-tag-options-list {
   background-color: #F8F8F8;
+}
+
+.capture-comment-form {
+  display: inline-block;
 }
 
 .cature-icon-svg {
