@@ -2,7 +2,7 @@ let pageHasHiglights = false;
 
 const captureButton = makeCaptureButton();
 
-function getSelectionParentElement() {
+const getSelectionParentElement = () => {
   let parentEl = null, sel;
   if (window.getSelection) {
       sel = window.getSelection();
@@ -18,11 +18,11 @@ function getSelectionParentElement() {
   return parentEl;
 }
 
-
 document.addEventListener('mouseup', e => {
   if (!window.getSelection) { return; } // return if browser doesn't support selection for some reason
   const selection = window.getSelection();
   const range = selection.getRangeAt(0).cloneRange();
+  console.log(e.target);
   if (e.target && (e.target.id === 'capture-button' || e.target.id === 'capture-button-image')) { // highlight button clicked
     e.stopPropagation();
     removeCaptureButtonFromDOM();
@@ -40,7 +40,7 @@ document.addEventListener('mouseup', e => {
       const parent = getSelectionParentElement();
       parent.style.position = 'relative';
       parent.appendChild(makeCommentPopup(id));
-      makeTagBox();
+      makeTagBox(id);
     });
   } else if (selection.toString() && selection.anchorNode.nodeType === 3) { // text highlighted 
     range.endContainer.parentNode.insertBefore(captureButton, range.endContainer.nextSibling);

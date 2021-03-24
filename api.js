@@ -22,6 +22,29 @@ function post(endpoint, body, cb = () => ({})) {
   http.send(JSON.stringify(body));
 }
 
+function patch(endpoint, body, cb = () => ({})) {
+  const http = new XMLHttpRequest();
+  const url = `${baseUrl}${endpoint}`;
+  http.open('PATCH', url, true);
+  http.setRequestHeader("Accept", "application/json");
+  http.setRequestHeader('Content-Type', 'application/json');
+
+  http.onreadystatechange = () => {
+    if (http.readyState === 4) {
+      cb(http.response);
+    }
+  }
+  http.send(JSON.stringify(body));
+}
+
+function get(endpoint) {
+  const http = new XMLHttpRequest();
+  const url = `${baseUrl}${endpoint}`;
+  http.open("GET", url, false);
+  http.send(null);
+  return JSON.parse(http.responseText);
+}
+
 function postSelection({
   selectionText, pageUrl, imageSrc, siteName, title,
 }, cb) {
@@ -59,13 +82,9 @@ function postComment({ selectionText, pageUrl, comment }, cb) {
   }, cb);
 }
 
-function postTags({ pageUrl, tags }, cb) {
-  post('tags', {
-    tag_post_request: {
-      user_id: userId,
-      url_of_quote: pageUrl,
-      tags,
-    }
+function postTags({ sourceId, tags }, cb) {
+  patch(`sources/${sourceId}`, {
+    tags,
   }, cb);
 }
 

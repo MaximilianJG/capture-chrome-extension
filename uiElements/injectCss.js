@@ -8,5 +8,5 @@ if (style.styleSheet) {
 } else {
     style.appendChild(document.createTextNode(cssRequest.responseText));
 }
-console.log(style);
+
 document.getElementsByTagName('head')[0].appendChild(style);

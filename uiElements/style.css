@@ -29,7 +29,7 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 2px; padding: 4px;
 }
 
-.capture-comment-popup-input, .capture-tag-box-input {
+.capture-comment-popup-input, #capture-tag-box-input {
   background: #F6F8FA;
   border: 0.5px solid #D8D7D5;
   box-sizing: border-box;
@@ -74,9 +74,31 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   display: inline-block;
   padding: 0;
   margin: 0;
+  font-size: 1.5rem;
+}
+
+.capture-logo {
+  width: 32px;
+  height: 32px;
 }
 
 .capture-tag-box-tag-icon {
   vertical-align: text-bottom;
   color: #AAA;
+}
+
+.capture-tag {
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+
+#capture-tag-box-tag-options-list {
+  background-color: #F8F8F8;
+}
+
+.cature-icon-svg {
+  height: 32px;
+  width: 32px;
+  padding: 3px 0 1px;
+  margin: 2px 0;
 }
