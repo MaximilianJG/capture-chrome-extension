@@ -29,7 +29,8 @@ function makeTagBox(sourceId) {
   form.onsubmit = e => {
     e.preventDefault();
     const tag = form.getElementsByTagName('input')[0].value;
-    postTags({ sourceId, tags: [tag]}, res => {
+    const otherTags = [...document.getElementById('capture-tag-box-tag-list').childNodes].map(t => t.innerText);
+    postTags({ sourceId, tags: [...otherTags, tag]}, res => {
       console.log(res);
       const newTag = makeTag(tag);
       document.getElementById('capture-tag-box-tag-list').appendChild(newTag);
