@@ -43,9 +43,7 @@ document.addEventListener('mouseup', e => {
         const highlight = makeHighlight(id);
         highlight.appendChild(range.extractContents());
         range.insertNode(highlight);
-        const parent = getSelectionParentElement();
-        parent.style.position = 'relative';
-        parent.appendChild(makeCommentPopup(id));
+        highlight.appendChild(makeCommentPopup(id));
       });
     } else {
       postSource({
@@ -60,9 +58,7 @@ document.addEventListener('mouseup', e => {
         const highlight = makeHighlight(quote.id);
         highlight.appendChild(range.extractContents());
         range.insertNode(highlight);
-        const parent = getSelectionParentElement();
-        parent.style.position = 'relative';
-        parent.appendChild(makeCommentPopup(quote.id));
+        highlight.appendChild(makeCommentPopup(quote.id));
         makeTagBox(source.id);
       });
     }
