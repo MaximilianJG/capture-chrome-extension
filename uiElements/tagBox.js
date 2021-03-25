@@ -12,19 +12,7 @@ function makeTagBox(sourceId) {
   const form = tagBox.getElementsByTagName('form')[0];
 
   const tagList = get('tags');
-  const dataList = tagBox.getElementsByTagName('datalist')[0];
-  dataList.innerHTML = tagList.map(t => `<option value=${t.name} />`).join('');
-
-  // input.addEventListener('input', e => {
-  //   const val = e.target.value;
-  //   const potentiallySelectedListItem = tagList.find(t => t.name === val);
-  //   console.log(potentiallySelectedListItem);
-  //   if (potentiallySelectedListItem) {
-  //     postTags({ sourceId, tags: [val]}, res => {
-  //       console.log(res);
-  //     });
-  //   }
-  // });
+  $(form).find('#capture-tag-box-input').autocomplete({ source: tagList.map(t => t.name)});
 
   form.onsubmit = e => {
     e.preventDefault();

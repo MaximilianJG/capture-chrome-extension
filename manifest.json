@@ -24,6 +24,7 @@
       "matches": ["http://*/*", "https://*/*"],
       "js": [
         "thirdParty/jquery-3.6.0.min.js",
+        "thirdParty/jquery-ui.min.js",
         "thirdParty/rangy-core.js",
         "api.js",
         "scrapers.js",
@@ -40,6 +41,7 @@
   "web_accessible_resources": [
     "assets/capture32.png",
     "uiElements/*.html",
-    "uiElements/*.css"
+    "uiElements/*.css",
+    "thirdParty/*.css"
   ]
 }
