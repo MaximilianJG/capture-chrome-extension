@@ -126,6 +126,16 @@ z-index: 99999999999;
   margin: 2px 0;
 }
 
+.capture-tag-cancel {
+  cursor: pointer;
+}
+.capture-tag-cancel > svg {
+  vertical-align: text-bottom;
+  margin-left: 3px;
+  height: 16px;
+  width: 16px;
+}
+
 /* for jquery auto complete */
 .ui-autocomplete {
   max-height: 140px;
