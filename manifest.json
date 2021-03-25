@@ -24,6 +24,9 @@
       "matches": ["http://*/*", "https://*/*"],
       "js": [
         "thirdParty/jquery-3.6.0.min.js",
+        "thirdParty/rangy-core.js",
+        "thirdParty/rangy-classapplier.js",
+        "thirdParty/rangy-highlighter.js",
         "api.js",
         "scrapers.js",
         "uiElements/injectCss.js",

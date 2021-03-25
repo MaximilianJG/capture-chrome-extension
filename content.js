@@ -1,3 +1,13 @@
+// rangy.createHighlighter();
+// rangy.addClassApplier('capture-highlight');
+
+rangy.rangePrototype.insertNodeAtEnd = function(node) {
+  var range = this.cloneRange();
+  range.collapse(false);
+  range.insertNode(node);
+  this.setEndAfter(node);
+};
+
 let pageHasHiglights = false;
 
 const captureButton = makeCaptureButton();
@@ -64,8 +74,11 @@ document.addEventListener('mouseup', e => {
         makeTagBox(source.id);
       });
     }
-  } else if (selection.toString() && selection.anchorNode.nodeType === 3) { // text highlighted 
+  } else if (selection.toString() && selection.anchorNode.nodeType === 3) { // text highlighted
+    const rSelect = rangy.getSelection();
+    // debugger;
     range.endContainer.parentNode.insertBefore(captureButton, range.endContainer.nextSibling);
+    // insertNodeAtEnd(captureButton);
   } else if (e.target && (e.target.className === 'capture-comment-popup-input' || e.target.className === 'capture-comment-popup-button')) {
     // Do nothing so that comment popup doesn't get ripped from dom
   } else { // any other click on the page
