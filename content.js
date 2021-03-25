@@ -1,13 +1,3 @@
-// rangy.createHighlighter();
-// rangy.addClassApplier('capture-highlight');
-
-rangy.rangePrototype.insertNodeAtEnd = function(node) {
-  var range = this.cloneRange();
-  range.collapse(false);
-  range.insertNode(node);
-  this.setEndAfter(node);
-};
-
 let pageHasHiglights = false;
 
 const captureButton = makeCaptureButton();
@@ -39,7 +29,7 @@ const isCaptureButton = clickTarget => {
 
 document.addEventListener('mouseup', e => {
   if (!window.getSelection) { return; } // return if browser doesn't support selection for some reason
-  const selection = window.getSelection();
+  const selection = rangy.getSelection();
   const range = selection.getRangeAt(0).cloneRange();
   if (isCaptureButton(e.target)) { // highlight button clicked
     e.stopPropagation();
@@ -51,7 +41,8 @@ document.addEventListener('mouseup', e => {
       }, response => {
         const { id } = JSON.parse(response);
         const highlight = makeHighlight(id);
-        range.surroundContents(highlight);
+        highlight.appendChild(range.extractContents());
+        range.insertNode(highlight);
         const parent = getSelectionParentElement();
         parent.style.position = 'relative';
         parent.appendChild(makeCommentPopup(id));
@@ -67,7 +58,8 @@ document.addEventListener('mouseup', e => {
         const { source, quote } = JSON.parse(response);
         pageHasHiglights = true;
         const highlight = makeHighlight(quote.id);
-        range.surroundContents(highlight);
+        highlight.appendChild(range.extractContents());
+        range.insertNode(highlight);
         const parent = getSelectionParentElement();
         parent.style.position = 'relative';
         parent.appendChild(makeCommentPopup(quote.id));
@@ -75,10 +67,8 @@ document.addEventListener('mouseup', e => {
       });
     }
   } else if (selection.toString() && selection.anchorNode.nodeType === 3) { // text highlighted
-    const rSelect = rangy.getSelection();
-    // debugger;
-    range.endContainer.parentNode.insertBefore(captureButton, range.endContainer.nextSibling);
-    // insertNodeAtEnd(captureButton);
+    range.collapse(false);
+    range.insertNode(captureButton);
   } else if (e.target && (e.target.className === 'capture-comment-popup-input' || e.target.className === 'capture-comment-popup-button')) {
     // Do nothing so that comment popup doesn't get ripped from dom
   } else { // any other click on the page
