@@ -14,6 +14,8 @@
   },
   "permissions": [
     "cookies",
+    "storage",
+    "tabs",
     "*://capture-maximilianjg.herokuapp.com/"
   ],
   "background": {

@@ -1,4 +1,18 @@
 let pageHasHiglights = false;
+let siteIsDisabled = false;
+
+chrome.storage.sync.get(['disabledSites'], res => {
+  siteIsDisabled = res.disabledSites && res.disabledSites.includes(window.location.hostname);
+});
+
+chrome.storage.onChanged.addListener(changes => {
+  for (const key in changes) {
+    if (key === 'disabledSites') {
+      const disabledSites = changes[key].newValue;
+      siteIsDisabled = disabledSites && disabledSites.includes(window.location.hostname);
+    }
+  }
+});
 
 const captureButton = makeCaptureButton();
 
@@ -28,7 +42,7 @@ const isCaptureButton = clickTarget => {
 }
 
 document.addEventListener('mouseup', e => {
-  if (!window.getSelection) { return; } // return if browser doesn't support selection for some reason
+  if (!window.getSelection || siteIsDisabled) { return; } // return if browser doesn't support selection for some reason
   const selection = rangy.getSelection();
   const range = selection.getRangeAt(0).cloneRange();
   if (isCaptureButton(e.target)) { // highlight button clicked

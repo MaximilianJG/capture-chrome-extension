@@ -1,0 +1,41 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Capture</title>
+  <meta name="description" content="Capture what's important">
+  <!-- <link rel="stylesheet" href="popup.css?v=1.0"> -->
+  <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+  <header class="capture-header">
+    <img class="logo" width="35" src="assets/capture.png">
+    <h1 class="capture-header-title">Capture</h1>
+    <span class="primary-line"></span>
+    <span class="secondary-line"></span>
+  </header>
+  <div class="content">
+    <div id="unauthed-page">
+      You are not currently logged in.<br />Please sign in at
+      <div>
+        <a href="https://capture-maximilianjg.herokuapp.com/">
+          capture-maximilianjg.herokuapp.com
+        </a>
+      </div>
+    </div>
+
+    <div id="app-toggles">
+      <label class="switch">
+        <input type="checkbox" id="capture-toggle" checked='true'>
+        <span class="slider round"></span>
+      </label>
+      <h3 id="capture-toggle-label">Capture is <strong id="capture-title-status">Enabled</strong> for this Site</h3>
+    </div>
+
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
