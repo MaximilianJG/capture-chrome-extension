@@ -1,25 +1,27 @@
-const cssRequest = new XMLHttpRequest();
-cssRequest.open("GET", chrome.extension.getURL(`/uiElements/style.css`), false);
-cssRequest.send(null);
-const style = document.createElement('style');
-
-if (style.styleSheet) {
-    style.styleSheet.cssText = cssRequest.responseText;
-} else {
-    style.appendChild(document.createTextNode(cssRequest.responseText));
+const appendSheetToHead = responseText => {
+  const style = document.createElement('style');
+  if (style.styleSheet) {
+      style.styleSheet.cssText = responseText;
+  } else {
+      style.appendChild(document.createTextNode(responseText));
+  }
+  document.getElementsByTagName('head')[0].appendChild(style);
 }
 
-document.getElementsByTagName('head')[0].appendChild(style);
+const cssRequest = new XMLHttpRequest();
+cssRequest.open("GET", chrome.extension.getURL(`/uiElements/style.css`), true);
+cssRequest.onreadystatechange = () => {
+  if (cssRequest.readyState === 4) {
+    appendSheetToHead(cssRequest.responseText);
+  }
+}
+cssRequest.send(null);
 
 const jqueryCssRequest = new XMLHttpRequest();
-jqueryCssRequest.open("GET", chrome.extension.getURL(`/thirdParty/jquery-ui.min.css`), false);
-jqueryCssRequest.send(null);
-const jqueryStyle = document.createElement('style');
-
-if (jqueryStyle.styleSheet) {
-  jqueryStyle.styleSheet.cssText = jqueryCssRequest.responseText;
-} else {
-  jqueryStyle.appendChild(document.createTextNode(jqueryCssRequest.responseText));
+jqueryCssRequest.open("GET", chrome.extension.getURL(`/thirdParty/jquery-ui.min.css`), true);
+jqueryCssRequest.onreadystatechange = () => {
+  if (jqueryCssRequest.readyState === 4) {
+    appendSheetToHead(jqueryCssRequest.responseText);
+  }
 }
-
-document.getElementsByTagName('head')[0].appendChild(jqueryStyle);
+jqueryCssRequest.send(null);

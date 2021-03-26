@@ -37,12 +37,16 @@ function patch(endpoint, body, cb = () => ({})) {
   http.send(JSON.stringify(body));
 }
 
-function get(endpoint) {
+function get(endpoint, cb) {
   const http = new XMLHttpRequest();
   const url = `${baseUrl}${endpoint}`;
-  http.open("GET", url, false);
+  http.open("GET", url, true);
+  http.onreadystatechange = () => {
+    if (http.readyState === 4) {
+      cb(JSON.parse(http.responseText));
+    }
+  }
   http.send(null);
-  return JSON.parse(http.responseText);
 }
 
 function del(endpoint, cb = () => ({})) {
