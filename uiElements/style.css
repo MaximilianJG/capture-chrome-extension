@@ -5,7 +5,7 @@ border: 0.5px solid #D8D7D5;
 border-radius: 100%;
 box-sizing: border-box;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-z-index: 99999999999;
+z-index: 2147483644;
 }
 
 #capture-button-image {
@@ -20,6 +20,7 @@ z-index: 99999999999;
   position: absolute;
   left: calc(50% - 100px);
   top: -45px;
+  z-index: 2147483645;
 }
 
 .capture-comment-popup-content {
@@ -67,7 +68,7 @@ z-index: 99999999999;
   position: fixed;
   right: 12px;
   top: 12px;
-  z-index: 99;
+  z-index: 2147483646;
   padding: 1rem;
   background: #FFFFFF;
   border: 1px solid #C5C5C5;
@@ -151,4 +152,5 @@ z-index: 99999999999;
 
 .ui-autocomplete.ui-menu.ui-widget {
   position: fixed;
+  z-index: 2147483647;
 }
