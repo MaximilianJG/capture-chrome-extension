@@ -44,13 +44,16 @@ const isCaptureButton = clickTarget => {
 document.addEventListener('mouseup', e => {
   if (!window.getSelection || siteIsDisabled) { return; } // return if browser doesn't support selection for some reason
   const selection = rangy.getSelection();
+  selection.trim();
+  const selectionText = selection.toString();
   const range = selection.getRangeAt(0).cloneRange();
+
   if (isCaptureButton(e.target)) { // highlight button clicked
     e.stopPropagation();
     removeCaptureButtonFromDOM();
     if (pageHasHiglights) {
       postQuote({
-        selectionText: selection.toString(),
+        selectionText,
         pageUrl: window.location.href,
       }, response => {
         const { id } = JSON.parse(response);
@@ -58,10 +61,11 @@ document.addEventListener('mouseup', e => {
         highlight.appendChild(range.extractContents());
         range.insertNode(highlight);
         makeCommentPopup(id, popup => highlight.appendChild(popup));
+        selection.removeAllRanges();
       });
     } else {
       postSource({
-        selectionText: selection.toString(),
+        selectionText,
         pageUrl: window.location.href,
         imageSrc: getArticleImage(),
         siteName: getSiteName(),
@@ -74,11 +78,14 @@ document.addEventListener('mouseup', e => {
         range.insertNode(highlight);
         makeCommentPopup(quote.id, popup => highlight.appendChild(popup));
         makeTagBox(source.id);
+        selection.removeAllRanges();
       });
     }
-  } else if (selection.toString() && selection.anchorNode.nodeType === 3) { // text highlighted
-    range.collapse(false);
-    range.insertNode(captureButton);
+  } else if (selectionText && selection.anchorNode.nodeType === 3) { // text highlighted
+    setTimeout(() => {
+      range.collapse(false);
+      range.insertNode(captureButton);
+    }, 500);
   } else if (e.target && (e.target.className === 'capture-comment-popup-input' || e.target.className === 'capture-comment-popup-button')) {
     // Do nothing so that comment popup doesn't get ripped from dom
   } else { // any other click on the page

@@ -28,6 +28,7 @@
         "thirdParty/jquery-3.6.0.min.js",
         "thirdParty/jquery-ui.min.js",
         "thirdParty/rangy-core.js",
+        "thirdParty/rangy-textrange.js",
         "api.js",
         "scrapers.js",
         "uiElements/injectCss.js",
