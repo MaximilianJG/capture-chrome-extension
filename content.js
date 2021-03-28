@@ -42,6 +42,14 @@ const debounce = (func, wait, immediate) => {
 
 const debouncedInsertButton = debounce(insertButton, buttonDelay);
 
+const insertHiglight = (range, id) => {
+  const highlight = makeHighlight(id);
+  const contents = range.extractContents();
+  highlight.appendChild(contents);
+  range.insertNode(highlight);
+  makeCommentPopup(id, popup => highlight.appendChild(popup));
+}
+
 const getSelectionParentElement = () => {
   let parentEl = null, sel;
   if (window.getSelection) {
@@ -71,7 +79,7 @@ document.addEventListener('mouseup', e => {
   if (!window.getSelection || siteIsDisabled) { return; } // return if browser doesn't support selection for some reason
   const selection = rangy.getSelection();
   const selectionText = selection.toString();
-  const originalRange = selection.getRangeAt(0).cloneRange()
+  const range = selection.getRangeAt(0).cloneRange()
   if (isCaptureButton(e.target)) { // highlight button clicked
     e.stopPropagation();
     removeCaptureButtonFromDOM();
@@ -81,10 +89,7 @@ document.addEventListener('mouseup', e => {
         pageUrl: window.location.href,
       }, response => {
         const { id } = JSON.parse(response);
-        const highlight = makeHighlight(id);
-        highlight.appendChild(originalRange.extractContents());
-        originalRange.insertNode(highlight);
-        makeCommentPopup(id, popup => highlight.appendChild(popup));
+        insertHiglight(range, id);
         selection.removeAllRanges();
       });
     } else {
@@ -97,10 +102,7 @@ document.addEventListener('mouseup', e => {
       }, response => {
         const { source, quote } = JSON.parse(response);
         pageHasHiglights = true;
-        const highlight = makeHighlight(quote.id);
-        highlight.appendChild(originalRange.extractContents());
-        originalRange.insertNode(highlight);
-        makeCommentPopup(quote.id, popup => highlight.appendChild(popup));
+        insertHiglight(range, quote.id);
         makeTagBox(source.id);
         selection.removeAllRanges();
       });
