@@ -2,9 +2,11 @@ const buttonDelay = 250; // milliseconds
 const onCapture = window.location.hostname === 'capture-maximilianjg.herokuapp.com';
 let pageHasHiglights = false;
 let siteIsDisabled = false;
+let globalDisabled = false;
 
-chrome.storage.sync.get(['disabledSites'], res => {
+chrome.storage.sync.get(['disabledSites', 'globalDisabled'], res => {
   siteIsDisabled = res.disabledSites && res.disabledSites.includes(window.location.hostname);
+  globalDisabled = res.globalDisabled;
   if (siteIsDisabled) {
     chrome.runtime.sendMessage({ type: "EXTENSION_OFF", payload: window.location.hostname });
   }
@@ -16,6 +18,11 @@ chrome.storage.onChanged.addListener(changes => {
       const disabledSites = changes[key].newValue;
       siteIsDisabled = disabledSites && disabledSites.includes(window.location.hostname);
       if (siteIsDisabled) {
+        removeCaptureButtonFromDOM();
+      }
+    } else if (key === 'globalDisabled') {
+      globalDisabled = changes[key].newValue;
+      if (globalDisabled) {
         removeCaptureButtonFromDOM();
       }
     }
@@ -105,7 +112,7 @@ const removeRedHighlight = () => {
 }
 
 document.addEventListener('mouseup', e => {
-  if (!window.getSelection || siteIsDisabled || onCapture) { return; } // return if browser doesn't support selection for some reason
+  if (!window.getSelection || siteIsDisabled || globalDisabled|| onCapture) { return; } // return if browser doesn't support selection for some reason
   const selection = rangy.getSelection();
   const selectionText = selection.toString();
   if (selectionText && selectionText.length > 300) {

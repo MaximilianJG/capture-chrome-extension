@@ -3,14 +3,23 @@ let currentSite;
 
 chrome.tabs.query({ active: true, currentWindow: true}, tabs => {
   currentSite = new URL(tabs[0].url).hostname;
-  chrome.storage.sync.get(['disabledSites'], res => {
+  chrome.storage.sync.get(['disabledSites', 'globalDisabled'], res => {
     siteIsDisabled = res.disabledSites && res.disabledSites.includes(currentSite);
     if (siteIsDisabled) {
       document.getElementById('capture-title-status').innerText = 'Disabled';
       document.getElementById('capture-toggle').checked = false;
     }
+    if (res.globalDisabled) {
+      document.getElementById('capture-global-title-status').innerText = 'Disabled';
+      document.getElementById('capture-global-toggle').checked = false;
+    }
   });
 });
+
+document.getElementById('capture-global-toggle').onchange = e => {
+  chrome.storage.sync.set({ globalDisabled: !e.target.checked });
+  document.getElementById('capture-global-title-status').innerText = e.target.checked ? 'Enabled' : 'Disabled';
+}
 
 document.getElementById('capture-toggle').onchange = e => {
   if (e.target.checked) {
