@@ -82,11 +82,38 @@ const isCaptureButton = clickTarget => {
   );
 }
 
+const makeHighlightRed = () => {
+  const highlightStyle = document.getElementById('capture-extension-highligt-error');
+  if (highlightStyle) { return; }
+  const style = document.createElement('style');
+  style.type = 'text/css';
+  style.id = 'capture-extension-highligt-error';
+  style.innerHTML = `
+    *::selection {
+      background-color: #FFCCCB;
+    }
+  `;
+  document.getElementsByTagName('head')[0].appendChild(style);
+}
+
+const removeRedHighlight = () => {
+  const highlightStyle = document.getElementById('capture-extension-highligt-error');
+  console.log(highlightStyle);
+  if (highlightStyle) {
+    highlightStyle.remove();
+  }
+}
+
 document.addEventListener('mouseup', e => {
   if (!window.getSelection || siteIsDisabled || onCapture) { return; } // return if browser doesn't support selection for some reason
   const selection = rangy.getSelection();
   const selectionText = selection.toString();
-  if (selectionText && selectionText.length > 300) { return; }
+  if (selectionText && selectionText.length > 300) {
+    makeHighlightRed();
+    return;
+   } else {
+     removeRedHighlight();
+   }
   const range = selection.getRangeAt(0).cloneRange();
   if (isCaptureButton(e.target)) { // highlight button clicked
     e.stopPropagation();
