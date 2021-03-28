@@ -86,7 +86,8 @@ document.addEventListener('mouseup', e => {
   if (!window.getSelection || siteIsDisabled || onCapture) { return; } // return if browser doesn't support selection for some reason
   const selection = rangy.getSelection();
   const selectionText = selection.toString();
-  const range = selection.getRangeAt(0).cloneRange()
+  if (selectionText && selectionText.length > 300) { return; }
+  const range = selection.getRangeAt(0).cloneRange();
   if (isCaptureButton(e.target)) { // highlight button clicked
     e.stopPropagation();
     removeCaptureButtonFromDOM();
