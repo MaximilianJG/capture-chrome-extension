@@ -4,6 +4,9 @@ let siteIsDisabled = false;
 
 chrome.storage.sync.get(['disabledSites'], res => {
   siteIsDisabled = res.disabledSites && res.disabledSites.includes(window.location.hostname);
+  if (siteIsDisabled) {
+    chrome.runtime.sendMessage({ type: "EXTENSION_OFF", payload: window.location.hostname });
+  }
 });
 
 chrome.storage.onChanged.addListener(changes => {
@@ -11,6 +14,9 @@ chrome.storage.onChanged.addListener(changes => {
     if (key === 'disabledSites') {
       const disabledSites = changes[key].newValue;
       siteIsDisabled = disabledSites && disabledSites.includes(window.location.hostname);
+      if (siteIsDisabled) {
+        removeCaptureButtonFromDOM();
+      }
     }
   }
 });

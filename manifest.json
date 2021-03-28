@@ -15,6 +15,7 @@
   "permissions": [
     "cookies",
     "storage",
+    "notifications",
     "tabs",
     "*://capture-maximilianjg.herokuapp.com/"
   ],
