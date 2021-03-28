@@ -1,3 +1,4 @@
+const buttonDelay = 250; // milliseconds
 let pageHasHiglights = false;
 let siteIsDisabled = false;
 
@@ -15,6 +16,31 @@ chrome.storage.onChanged.addListener(changes => {
 });
 
 const captureButton = makeCaptureButton();
+
+const insertButton = () => {
+  const selection = rangy.getSelection();
+  selection.trim();
+  const range = selection.getRangeAt(0).cloneRange();
+  range.collapse(false);
+  range.insertNode(captureButton);
+}
+
+const debounce = (func, wait, immediate) => {
+  var timeout;
+  return function() {
+    var context = this, args = arguments;
+    var later = function() {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+    var callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+};
+
+const debouncedInsertButton = debounce(insertButton, buttonDelay);
 
 const getSelectionParentElement = () => {
   let parentEl = null, sel;
@@ -44,10 +70,8 @@ const isCaptureButton = clickTarget => {
 document.addEventListener('mouseup', e => {
   if (!window.getSelection || siteIsDisabled) { return; } // return if browser doesn't support selection for some reason
   const selection = rangy.getSelection();
-  selection.trim();
   const selectionText = selection.toString();
-  const range = selection.getRangeAt(0).cloneRange();
-
+  const originalRange = selection.getRangeAt(0).cloneRange()
   if (isCaptureButton(e.target)) { // highlight button clicked
     e.stopPropagation();
     removeCaptureButtonFromDOM();
@@ -58,8 +82,8 @@ document.addEventListener('mouseup', e => {
       }, response => {
         const { id } = JSON.parse(response);
         const highlight = makeHighlight(id);
-        highlight.appendChild(range.extractContents());
-        range.insertNode(highlight);
+        highlight.appendChild(originalRange.extractContents());
+        originalRange.insertNode(highlight);
         makeCommentPopup(id, popup => highlight.appendChild(popup));
         selection.removeAllRanges();
       });
@@ -74,18 +98,15 @@ document.addEventListener('mouseup', e => {
         const { source, quote } = JSON.parse(response);
         pageHasHiglights = true;
         const highlight = makeHighlight(quote.id);
-        highlight.appendChild(range.extractContents());
-        range.insertNode(highlight);
+        highlight.appendChild(originalRange.extractContents());
+        originalRange.insertNode(highlight);
         makeCommentPopup(quote.id, popup => highlight.appendChild(popup));
         makeTagBox(source.id);
         selection.removeAllRanges();
       });
     }
   } else if (selectionText && selection.anchorNode.nodeType === 3) { // text highlighted
-    setTimeout(() => {
-      range.collapse(false);
-      range.insertNode(captureButton);
-    }, 500);
+    debouncedInsertButton();
   } else if (e.target && (e.target.className === 'capture-comment-popup-input' || e.target.className === 'capture-comment-popup-button')) {
     // Do nothing so that comment popup doesn't get ripped from dom
   } else { // any other click on the page
