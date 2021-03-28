@@ -30,7 +30,8 @@ function makeTagBox(sourceId) {
     const form = tagBox.getElementsByTagName('form')[0];
   
     get('tags', tagList => {
-      $(form).find('#capture-tag-box-input').autocomplete({ source: tagList.map(t => t.name)});
+      const uniqueTags = tagList.map(t => t.name).filter((value, index, self) => self.indexOf(value) === index);
+      $(form).find('#capture-tag-box-input').autocomplete({ source: uniqueTags});
   
       form.onsubmit = e => {
         e.preventDefault();
