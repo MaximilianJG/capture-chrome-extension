@@ -31,7 +31,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       break;
 
     case 'EXTENSION_OFF': {
-      chrome.notifications.create(`EXT_OFF_${request.payload}`, {
+      chrome.notifications.create({
         type: 'basic',
         iconUrl: 'assets/capture.png',
         title: 'Capture is Disabled',
