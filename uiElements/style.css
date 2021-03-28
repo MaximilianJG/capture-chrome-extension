@@ -21,7 +21,7 @@
 
 .capture-comment-popup {
   position: absolute;
-  left: max(calc(50% - 100px), 0);
+  left: max(calc(50% - 100px), 0px);
   top: -45px;
   z-index: 2147483645;
   font-family: "Work Sans", "Helvetica", "sans-serif";
