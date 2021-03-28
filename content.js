@@ -1,4 +1,5 @@
 const buttonDelay = 250; // milliseconds
+const onCapture = window.location.hostname === 'capture-maximilianjg.herokuapp.com';
 let pageHasHiglights = false;
 let siteIsDisabled = false;
 
@@ -82,7 +83,7 @@ const isCaptureButton = clickTarget => {
 }
 
 document.addEventListener('mouseup', e => {
-  if (!window.getSelection || siteIsDisabled) { return; } // return if browser doesn't support selection for some reason
+  if (!window.getSelection || siteIsDisabled || onCapture) { return; } // return if browser doesn't support selection for some reason
   const selection = rangy.getSelection();
   const selectionText = selection.toString();
   const range = selection.getRangeAt(0).cloneRange()
