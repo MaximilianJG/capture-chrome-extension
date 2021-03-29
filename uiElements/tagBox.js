@@ -31,8 +31,21 @@ function makeTagBox(sourceId) {
   
     get('tags', tagList => {
       const uniqueTags = tagList.map(t => t.name).filter((value, index, self) => self.indexOf(value) === index);
-      $(form).find('#capture-tag-box-input').autocomplete({ source: uniqueTags});
-  
+      $(form).find('#capture-tag-box-input').autocomplete({
+        source: uniqueTags,
+        select: (e, ui) => {
+          if (ui.item && ui.item.value) {
+            const tag = ui.item.value;
+            const otherTags = [...document.getElementById('capture-tag-box-tag-list').childNodes].map(t => t.innerText.trim());
+            postTags({ sourceId, tags: [...otherTags, tag]}, res => {
+              const newTag = makeTag(sourceId, tag);
+              document.getElementById('capture-tag-box-tag-list').appendChild(newTag);
+              document.getElementById('capture-tag-box-input').value = '';
+            });
+          }
+        }
+      });
+
       form.onsubmit = e => {
         e.preventDefault();
         const tag = form.getElementsByTagName('input')[0].value;

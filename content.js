@@ -105,7 +105,6 @@ const makeHighlightRed = () => {
 
 const removeRedHighlight = () => {
   const highlightStyle = document.getElementById('capture-extension-highligt-error');
-  console.log(highlightStyle);
   if (highlightStyle) {
     highlightStyle.remove();
   }
