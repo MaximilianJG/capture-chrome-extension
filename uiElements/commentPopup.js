@@ -22,7 +22,6 @@ function makeCommentPopup(id, cb) {
     form.onsubmit = e => {
       e.preventDefault();
       const comment = form.getElementsByTagName('input')[0].value;
-      const selectionText = document.getElementById(`capture-highlight-${id}`).textContent;
       postComment({
         quoteId: id,
         comment
