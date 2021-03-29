@@ -39,6 +39,16 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         // requireInteraction: true,
       }, id => {});
     }
+    
+    case 'OVER_SELECT': {
+      chrome.notifications.create('OVER_SELECT', {
+        type: 'basic',
+        iconUrl: 'assets/capture.png',
+        title: 'Captured Too Much Text',
+        message: 'Capture limits selections to 300 characters.',
+        // requireInteraction: true,
+      }, id => {});
+    }
   
     default:
       break;

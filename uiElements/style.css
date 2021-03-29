@@ -14,17 +14,17 @@
 #capture-button-image {
   padding: 0;
   margin: 6px 1px;
-  height: 32px;
-  width: 32px;
+  height: 18px;
+  width: 18px;
   vertical-align: middle;
 }
 
 .capture-comment-popup {
   position: absolute;
   left: max(calc(50% - 100px), 0px);
-  top: -45px;
+  top: -50px;
   z-index: 2147483645;
-  font-family: "Work Sans", "Helvetica", "sans-serif";
+  font-family: "Open Sans", "Helvetica", "sans-serif";
 }
 
 .capture-comment-popup-content {
@@ -32,18 +32,25 @@
   border: 1px solid #D8D7D5;
   box-sizing: border-box;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 2px; padding: 4px;
+  border-radius: 5px;
+  padding: 6px;
   white-space: normal;
-  min-width: 225px;
+  min-width: 214px;
 }
 
 .capture-comment-popup-input, #capture-tag-box-input {
   background: #F6F8FA;
   border: 0.5px solid #D8D7D5;
   box-sizing: border-box;
-  border-radius: 2px;
-  font-size: 16px;
-  padding: 3px;
+  border-radius: 5px;
+  font-size: 14px;
+  padding: 5px;
+}
+
+#capture-tag-box-input {
+   /* width: calc(100% - 38px); */
+   width: 100%;
+   padding-left: 32px;
 }
 
 .capture-comment-popup-content > .capture-comment-popup-button {
@@ -91,7 +98,7 @@
   box-sizing: border-box;
   box-shadow: 4px 4px 50px 5px rgba(0, 0, 0, 0.5);
   border-radius: 8px;
-  font-family: "Work Sans", "Helvetica", "sans-serif";
+  font-family: "Open Sans", "Helvetica", "sans-serif" !;
 }
 
 .capture-tag-box-title {
@@ -102,8 +109,9 @@
   display: inline-block;
   padding: 0;
   margin: 0;
-  font-size: 24px;
+  font-size: 20px;
   color: black;
+  font-family: "Open Sans", "Helvetica", "sans-serif" !important;
 }
 
 .capture-logo {
@@ -111,23 +119,31 @@
   height: 24px;
 }
 
-.capture-tag-box-tag-icon {
-  vertical-align: middle;
-  color: #AAA;
-}
-
 #capture-tag-box-tag-list {
-  margin-top: 5px;
+  margin-top: 8px;
   max-width: 200px;
 }
 
 .capture-tag {
   display: inline-block;
   margin-right: 0.5rem;
-  background-color: #F8F8F8;
+  background-color: #ffe60069;
   border-radius: 0.25rem;
   padding: 1px 5px;
   margin-bottom: 5px;
+}
+
+.capture-tag-box-form {
+  margin-top: 6px;
+  position: relative;
+}
+
+.capture-tag-box-tag-icon {
+  position: absolute;
+  vertical-align: middle;
+  color: #AAA;
+  top: 3px;
+  left: 5px;
 }
 
 #capture-tag-box-tag-options-list {
@@ -136,7 +152,7 @@
 
 .capture-comment-form {
   display: inline-block;
-  font-family: "Work Sans", "Helvetica", "sans-serif";
+  font-family: "Open Sans", "Helvetica", "sans-serif";
 }
 
 .cature-icon-svg {
@@ -173,4 +189,17 @@
 .ui-autocomplete.ui-menu.ui-widget {
   position: fixed;
   z-index: 2147483647;
+}
+
+.capture-tag-box-link-area {
+  text-align: right;
+}
+
+.capture-tag-box-link-area > a {
+  color: #a9a9a9;
+}
+
+.capture-tag-box-link-area > a:hover {
+  border-bottom: 1px solid #808080;
+  color: #808080;
 }

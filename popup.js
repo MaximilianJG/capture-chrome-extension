@@ -12,13 +12,15 @@ chrome.tabs.query({ active: true, currentWindow: true}, tabs => {
     if (res.globalDisabled) {
       document.getElementById('capture-global-title-status').innerText = 'Disabled';
       document.getElementById('capture-global-toggle').checked = false;
+      document.getElementById('capture-global-site-toggle-container').style.display = 'none';
     }
   });
 });
 
 document.getElementById('capture-global-toggle').onchange = e => {
   chrome.storage.sync.set({ globalDisabled: !e.target.checked });
-  document.getElementById('capture-global-title-status').innerText = e.target.checked ? 'Enabled' : 'Disabled';
+  document.getElementById('capture-global-title-status').innerText = e.target.checked ? 'On' : 'Off';
+  document.getElementById('capture-global-site-toggle-container').style.display = e.target.checked ? 'block' : 'none';
 }
 
 document.getElementById('capture-toggle').onchange = e => {

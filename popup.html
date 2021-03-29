@@ -12,8 +12,10 @@
 
 <body>
   <header class="capture-header">
-    <img class="logo" width="35" src="assets/capture.png">
-    <h1 class="capture-header-title">Capture</h1>
+    <div class='header-containter'>
+      <img class="logo" width="35" src="assets/capture.png">
+      <h1 class="capture-header-title">Capture</h1>
+    </div>
     <span class="primary-line"></span>
     <span class="secondary-line"></span>
   </header>
@@ -32,13 +34,15 @@
         <input type="checkbox" id="capture-global-toggle" checked='true'>
         <span class="slider round"></span>
       </label>
-      <h3 id="capture-global-toggle-label">Capture is <strong id="capture-global-title-status">Enabled</strong></h3>
+      <h3 id="capture-global-toggle-label">Capture is <strong id="capture-global-title-status">On</strong></h3>
 
-      <label class="switch">
-        <input type="checkbox" id="capture-toggle" checked='true'>
-        <span class="slider round"></span>
-      </label>
-      <h3 id="capture-toggle-label">Capture is <strong id="capture-title-status">Enabled</strong> for this Site</h3>
+      <div id='capture-global-site-toggle-container'>
+        <label class="switch">
+          <input type="checkbox" id="capture-toggle" checked='true'>
+          <span class="slider round"></span>
+        </label>
+        <h3 id="capture-toggle-label">Capture is <strong id="capture-title-status">Enabled</strong> for this Site</h3>
+      </div>
     </div>
 
   </div>

@@ -111,12 +111,17 @@ const removeRedHighlight = () => {
   }
 }
 
+document.addEventListener('mousedown', e => {
+  removeRedHighlight();
+});
+
 document.addEventListener('mouseup', e => {
   if (!window.getSelection || siteIsDisabled || globalDisabled|| onCapture) { return; } // return if browser doesn't support selection for some reason
   const selection = rangy.getSelection();
   const selectionText = selection.toString();
   if (selectionText && selectionText.length > 300) {
     makeHighlightRed();
+    chrome.runtime.sendMessage({ type: "OVER_SELECT", });
     return;
    } else {
      removeRedHighlight();
