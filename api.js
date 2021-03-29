@@ -89,12 +89,11 @@ function postQuote({ selectionText, pageUrl }, cb) {
   }, cb);
 }
 
-function postComment({ selectionText, pageUrl, comment }, cb) {
+function postComment({ quoteId, comment }, cb) {
   post('comments', {
     comment_post_request: {
       user_id: userId,
-      quote_content: selectionText,
-      url_of_quote: pageUrl,
+      quote_id: quoteId,
       comment,
     }
   }, cb);
