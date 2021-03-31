@@ -49,6 +49,15 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         // requireInteraction: true,
       }, id => {});
     }
+
+    case 'UNSUPPORTED_SITE': {
+      chrome.notifications.create(`UNSUPPORTED_SITE_${request.site}`, {
+        type: 'basic',
+        iconUrl: 'assets/capture.png',
+        title: `Captured does not Support ${request.site}`,
+        message: 'Sorry, you won\'t be able to capture anything on this site, but we\'re working on it!',
+      }, id => {});
+    }
   
     default:
       break;

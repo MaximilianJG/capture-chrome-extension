@@ -1,5 +1,7 @@
 const buttonDelay = 250; // milliseconds
 const onCapture = window.location.hostname === 'capture-maximilianjg.herokuapp.com';
+const unsupportedSites = ['www.facebook.com', 'twitter.com'];
+const onUnspportedSite = unsupportedSites.includes(window.location.hostname);
 let pageHasHiglights = false;
 let siteIsDisabled = false;
 let globalDisabled = false;
@@ -115,6 +117,10 @@ document.addEventListener('mousedown', e => {
 });
 
 document.addEventListener('mouseup', e => {
+  if (onUnspportedSite) {
+    chrome.runtime.sendMessage({ type: "UNSUPPORTED_SITE", site: window.location.hostname });
+    return;
+  }
   if (!window.getSelection || siteIsDisabled || globalDisabled|| onCapture) { return; } // return if browser doesn't support selection for some reason
   const selection = rangy.getSelection();
   const selectionText = selection.toString();
@@ -132,7 +138,7 @@ document.addEventListener('mouseup', e => {
     if (pageHasHiglights) {
       postQuote({
         selectionText,
-        pageUrl: window.location.href,
+        pageUrl: getPageURl(selection),
       }, response => {
         const { id } = JSON.parse(response);
         insertHiglight(range, id);
@@ -141,10 +147,10 @@ document.addEventListener('mouseup', e => {
     } else {
       postSource({
         selectionText,
-        pageUrl: window.location.href,
-        imageSrc: getArticleImage(),
-        siteName: getSiteName(),
-        title: getArticleTitle(),
+        pageUrl: getPageURl(selection),
+        imageSrc: getArticleImage(selection),
+        siteName: getSiteName(selection),
+        title: getArticleTitle(selection),
       }, response => {
         const { source, quote } = JSON.parse(response);
         pageHasHiglights = true;
