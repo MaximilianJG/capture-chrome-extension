@@ -1,6 +1,11 @@
 const buttonDelay = 250; // milliseconds
 const onCapture = window.location.hostname === 'capture-maximilianjg.herokuapp.com';
-const unsupportedSites = ['www.facebook.com', 'twitter.com'];
+const unsupportedSites = [
+  'www.facebook.com',
+  'twitter.com',
+  'www.instagram.com',
+  'www.youtube.com',
+];
 const onUnspportedSite = unsupportedSites.includes(window.location.hostname);
 let pageHasHiglights = false;
 let siteIsDisabled = false;
