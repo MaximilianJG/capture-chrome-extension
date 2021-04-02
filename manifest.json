@@ -1,7 +1,7 @@
 {
   "name": "Capture Chrome Extension",
-  "description" : "Base Level Extension",
-  "version": "0.1.0",
+  "description" : "Capture and share news snippets.",
+  "version": "1.0.0",
   "manifest_version": 2,
   "browser_action": {
     "default_popup": "popup.html",
