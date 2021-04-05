@@ -1,5 +1,5 @@
 {
-  "name": "Capture Chrome Extension",
+  "name": "Capture",
   "description" : "Capture and share news snippets.",
   "version": "1.0.0",
   "manifest_version": 2,
