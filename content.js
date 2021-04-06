@@ -160,7 +160,9 @@ document.addEventListener('mouseup', e => {
         const { source, quote } = JSON.parse(response);
         pageHasHiglights = true;
         insertHiglight(range, quote.id);
-        makeTagBox(source.id);
+        if (!document.getElementById('capture-tag-box')) {
+          makeTagBox(source.id);
+        }
         selection.removeAllRanges();
       });
     }
