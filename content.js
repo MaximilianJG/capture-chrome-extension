@@ -63,12 +63,14 @@ const debounce = (func, wait, immediate) => {
 
 const debouncedInsertButton = debounce(insertButton, buttonDelay);
 
-const insertHiglight = (range, id) => {
+const insertHiglight = (range, id, noComment) => {
   const highlight = makeHighlight(id);
   const contents = range.extractContents();
   highlight.appendChild(contents);
   range.insertNode(highlight);
-  makeCommentPopup(id, popup => highlight.appendChild(popup));
+  if (!noComment) {
+    makeCommentPopup(id, popup => highlight.appendChild(popup));
+  }
 }
 
 const getSelectionParentElement = () => {
@@ -124,7 +126,6 @@ document.addEventListener('mousedown', e => {
 document.addEventListener('mouseup', e => {
   if (onUnspportedSite) {
     chrome.runtime.sendMessage({ type: "UNSUPPORTED_SITE", site: window.location.hostname });
-    return;
   }
   if (!window.getSelection || siteIsDisabled || globalDisabled|| onCapture) { return; } // return if browser doesn't support selection for some reason
   const selection = rangy.getSelection();
@@ -146,7 +147,7 @@ document.addEventListener('mouseup', e => {
         pageUrl: getPageURl(selection),
       }, response => {
         const { id } = JSON.parse(response);
-        insertHiglight(range, id);
+        insertHiglight(range, id, onUnspportedSite);
         selection.removeAllRanges();
       });
     } else {
@@ -159,8 +160,8 @@ document.addEventListener('mouseup', e => {
       }, response => {
         const { source, quote } = JSON.parse(response);
         pageHasHiglights = true;
-        insertHiglight(range, quote.id);
-        if (!document.getElementById('capture-tag-box')) {
+        insertHiglight(range, quote.id, onUnspportedSite);
+        if (!document.getElementById('capture-tag-box') && !onUnspportedSite) {
           makeTagBox(source.id);
         }
         selection.removeAllRanges();

@@ -51,11 +51,11 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
 
     case 'UNSUPPORTED_SITE': {
-      chrome.notifications.create(`UNSUPPORTED_SITE_${request.site}`, {
+      chrome.notifications.create(`NON_FULLY_SUPPORTED_SITE_${request.site}`, {
         type: 'basic',
         iconUrl: 'assets/capture.png',
-        title: `Captured does not Support ${request.site}`,
-        message: 'Sorry, you won\'t be able to capture anything on this site, but we\'re working on it!',
+        title: `Capture does not fully Support ${request.site}`,
+        message: 'Feel free to make captures, but please visit https://capture-maximilianjg.herokuapp.com to comment and add tags.',
       }, id => {});
     }
   
@@ -66,7 +66,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 
 chrome.notifications.onClicked.addListener(type => {
-  if (type === 'UNAUTHED') {
+  if (type === 'UNAUTHED' || type === 'UNSUPPORTED_SITE') {
     chrome.tabs.create({
       active: true,
       url: 'https://capture-maximilianjg.herokuapp.com',
