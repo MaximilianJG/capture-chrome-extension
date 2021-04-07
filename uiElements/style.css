@@ -35,7 +35,7 @@
   border-radius: 5px;
   padding: 6px;
   white-space: normal;
-  min-width: 255px;
+  min-width: 214px;
 }
 
 .capture-comment-popup-input, #capture-tag-box-input {
@@ -206,4 +206,8 @@
 .capture-tag-box-link-area > a:hover {
   border-bottom: 1px solid #808080;
   color: #808080;
+}
+
+#capture-comment-popup-trash-button {
+  display: none;
 }
