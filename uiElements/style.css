@@ -35,7 +35,7 @@
   border-radius: 5px;
   padding: 6px;
   white-space: normal;
-  min-width: 214px;
+  min-width: 255px;
 }
 
 .capture-comment-popup-input, #capture-tag-box-input {
@@ -55,7 +55,7 @@
    line-height: unset;
 }
 
-.capture-comment-popup-content > .capture-comment-popup-button {
+.capture-comment-popup-content > form > .capture-comment-popup-button {
   background-color: transparent;
   border: none;
   cursor: pointer;

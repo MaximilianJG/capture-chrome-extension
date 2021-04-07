@@ -10,7 +10,7 @@ function makeCommentPopup(id, cb) {
     popup.id = `capture-comment-popup-${id}`;
     popup.className = 'capture-comment-popup';
     const form = popup.getElementsByTagName('form')[0];
-    const trashButton = popup.getElementsByTagName('button')[0];
+    const trashButton = popup.getElementsByTagName('button')[1];
   
     trashButton.onclick = e => {
       e.stopPropagation();
@@ -21,6 +21,7 @@ function makeCommentPopup(id, cb) {
   
     form.onsubmit = e => {
       e.preventDefault();
+      console.log('submitting');
       const comment = form.getElementsByTagName('input')[0].value;
       postComment({
         quoteId: id,
