@@ -15,7 +15,7 @@ chrome.storage.sync.get(['disabledSites', 'globalDisabled'], res => {
   siteIsDisabled = res.disabledSites && res.disabledSites.includes(window.location.hostname);
   globalDisabled = res.globalDisabled;
   if (siteIsDisabled) {
-    chrome.runtime.sendMessage({ type: "EXTENSION_OFF", payload: window.location.hostname });
+    chrome.runtime.sendMessage({ type: "EXTENSION_OFF", site: window.location.hostname });
   }
 });
 
