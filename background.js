@@ -15,11 +15,14 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   const { type } = request;
   switch (type) {
     case 'GET_COOKIE':
+      console.log('cooookie');
       getCookie(cookie => {
+        console.log('getting cookie', cookie);
         if (cookie) {
           sendResponse({ type: 'COOKIE', cookie, })
         } else {
-          chrome.notifications.create('UNAUTHED', {
+          console.log('nootifyin');
+          chrome.notifications.create(`UNAUTHED_${request.site}`, {
             type: 'basic',
             iconUrl: 'assets/capture.png',
             title: 'Capture is not logged in.',
@@ -66,7 +69,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 
 chrome.notifications.onClicked.addListener(type => {
-  if (type === 'UNAUTHED' || type === 'UNSUPPORTED_SITE') {
+  console.log(type);
+  if (type.includes('UNAUTHED') || type.includes('UNSUPPORTED_SITE')) {
     chrome.tabs.create({
       active: true,
       url: 'https://capture-maximilianjg.herokuapp.com',

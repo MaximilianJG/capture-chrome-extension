@@ -1,12 +1,19 @@
 const baseUrl = 'https://capture-maximilianjg.herokuapp.com/api/v1/';
 // const baseUrl = 'https://92926f878562.ngrok.io/api/v1/';
-let userId;
+let userIdFromCookie;
 
-chrome.runtime.sendMessage({ type: "GET_COOKIE" }, response => {
-  if (response && response.type === 'COOKIE' && response.cookie) {
-    userId = response.cookie.value; // this value is encryped and is causing issues
+const getUserIdFromCookieThen = cb => {
+  if (userIdFromCookie) {
+    cb(userIdFromCookie);
+    return
   }
-});
+  chrome.runtime.sendMessage({ type: "GET_COOKIE", site: window.location.hostname }, response => {
+    if (response && response.type === 'COOKIE' && response.cookie) {
+      userIdFromCookie = response.cookie.value;
+      cb(userIdFromCookie);
+    }
+  });
+}
 
 function post(endpoint, body, cb = () => ({})) {
   const http = new XMLHttpRequest();
@@ -66,37 +73,43 @@ function del(endpoint, cb = () => ({})) {
 function postSource({
   selectionText, pageUrl, imageSrc, siteName, title,
 }, cb) {
-  post('sources', {
-    general_post_request: {
-      user_id: userId,
-      quote_content: selectionText,
-      url_of_quote: pageUrl,
-      source_title: title,
-      website: siteName,
-      url_of_website: pageUrl,
-      source_photo_url: imageSrc,
-    }
-  }, cb);
+  getUserIdFromCookieThen(userId => {
+    post('sources', {
+      general_post_request: {
+        user_id: userId,
+        quote_content: selectionText,
+        url_of_quote: pageUrl,
+        source_title: title,
+        website: siteName,
+        url_of_website: pageUrl,
+        source_photo_url: imageSrc,
+      }
+    }, cb);
+  });
 }
 
 function postQuote({ selectionText, pageUrl }, cb) {
-  post('quotes', {
-    snippet_post_request: {
-      user_id: userId,
-      quote_content: selectionText,
-      url_of_quote: pageUrl,
-    }
-  }, cb);
+  getUserIdFromCookieThen(userId => {
+    post('quotes', {
+      snippet_post_request: {
+        user_id: userId,
+        quote_content: selectionText,
+        url_of_quote: pageUrl,
+      }
+    }, cb);
+  });
 }
 
 function postComment({ quoteId, comment }, cb) {
-  post('comments', {
-    comment_post_request: {
-      user_id: userId,
-      quote_id: quoteId,
-      comment,
-    }
-  }, cb);
+  getUserIdFromCookieThen(userId => {
+    post('comments', {
+      comment_post_request: {
+        user_id: userId,
+        quote_id: quoteId,
+        comment,
+      }
+    }, cb);
+  });
 }
 
 function postTags({ sourceId, tags }, cb) {
