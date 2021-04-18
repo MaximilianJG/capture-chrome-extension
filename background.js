@@ -1,5 +1,6 @@
 const getCookie = (cb = () => ({})) => {
-  chrome.cookies.getAll({ domain: 'capture-maximilianjg.herokuapp.com' }, cookies => {
+  chrome.cookies.getAll({ domain: 'www.getcapture.org' }, cookies => {
+    console.log(cookies);
     if (cookies.length) {
       const userIdCookie = cookies.find(c => c.name === 'capture_user_id');
       if (userIdCookie) {
@@ -15,18 +16,15 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   const { type } = request;
   switch (type) {
     case 'GET_COOKIE':
-      console.log('cooookie');
       getCookie(cookie => {
-        console.log('getting cookie', cookie);
         if (cookie) {
           sendResponse({ type: 'COOKIE', cookie, })
         } else {
-          console.log('nootifyin');
           chrome.notifications.create(`UNAUTHED_${request.site}`, {
             type: 'basic',
             iconUrl: 'assets/capture.png',
             title: 'Capture is not logged in.',
-            message: 'Please go to https://capture-maximilianjg.herokuapp.com to sign in.',
+            message: 'Please go to https://www.getcapture.org to sign in.',
             // requireInteraction: true,
           }, id => {});
         }
@@ -58,7 +56,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         type: 'basic',
         iconUrl: 'assets/capture.png',
         title: `Capture does not fully Support ${request.site}`,
-        message: 'Feel free to make captures, but please visit https://capture-maximilianjg.herokuapp.com to comment and add tags.',
+        message: 'Feel free to make captures, but please visit https://www.getcapture.org to comment and add tags.',
       }, id => {});
     }
   
@@ -73,7 +71,7 @@ chrome.notifications.onClicked.addListener(type => {
   if (type.includes('UNAUTHED') || type.includes('UNSUPPORTED_SITE')) {
     chrome.tabs.create({
       active: true,
-      url: 'https://capture-maximilianjg.herokuapp.com',
+      url: 'https://www.getcapture.org',
     });
   }
 });

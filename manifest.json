@@ -1,7 +1,7 @@
 {
   "name": "Capture",
   "description" : "Capture and share news snippets.",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "manifest_version": 2,
   "browser_action": {
     "default_popup": "popup.html",
@@ -17,7 +17,8 @@
     "storage",
     "notifications",
     "tabs",
-    "*://capture-maximilianjg.herokuapp.com/"
+    "*://capture-maximilianjg.herokuapp.com/",
+    "*://www.getcapture.org/"
   ],
   "background": {
     "scripts": ["background.js"]

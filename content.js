@@ -1,5 +1,5 @@
 const buttonDelay = 250; // milliseconds
-const onCapture = window.location.hostname === 'capture-maximilianjg.herokuapp.com';
+const onCapture = window.location.hostname === 'capture-maximilianjg.herokuapp.com' || window.location.hostname === 'www.getcapture.org';
 const unsupportedSites = [
   'www.facebook.com',
   'twitter.com',
