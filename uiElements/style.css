@@ -55,7 +55,7 @@
    line-height: unset;
 }
 
-.capture-comment-popup-content > form > .capture-comment-popup-button {
+.capture-comment-popup-content > form > .capture-comment-popup-button, .capture-comment-popup-content > .capture-comment-popup-button {
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -89,6 +89,10 @@
 
 .capture-highlight:hover.deleted {
   background-color: transparent;
+}
+
+.capture-highlight.deleted > .capture-comment-popup {
+  display: none;
 }
 
 #capture-tag-box {
