@@ -29,7 +29,6 @@ document.getElementById('capture-toggle').onchange = e => {
     chrome.storage.sync.get(['disabledSites'], res => {
       if (res.disabledSites) {
         const newDisabledSites = res.disabledSites.filter(s => s !== currentSite);
-        console.log(newDisabledSites);
         chrome.storage.sync.set({ disabledSites: newDisabledSites });
       }
     });
@@ -37,7 +36,6 @@ document.getElementById('capture-toggle').onchange = e => {
     document.getElementById('capture-title-status').innerText = 'Disabled';
     chrome.storage.sync.get(['disabledSites'], res => {
       const newDisabledSites = res.disabledSites ? [...res.disabledSites, currentSite] : [currentSite];
-      console.log(newDisabledSites);
       chrome.storage.sync.set({ disabledSites: newDisabledSites });
     });
   }

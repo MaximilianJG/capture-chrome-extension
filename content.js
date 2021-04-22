@@ -146,7 +146,11 @@ document.addEventListener('mouseup', e => {
         selectionText,
         pageUrl: getPageURl(selection),
       }, response => {
-        const { id } = JSON.parse(response);
+        const { id, status } = JSON.parse(response);
+        if (status === 500) {
+          chrome.runtime.sendMessage({ type: "ERROR", });
+          return;
+        }
         insertHiglight(range, id, onUnspportedSite);
         selection.removeAllRanges();
       });
@@ -158,7 +162,11 @@ document.addEventListener('mouseup', e => {
         siteName: getSiteName(selection),
         title: getArticleTitle(selection),
       }, response => {
-        const { source, quote } = JSON.parse(response);
+        const { source, quote, status } = JSON.parse(response);
+        if (status === 500) {
+          chrome.runtime.sendMessage({ type: "ERROR", });
+          return;
+        }
         pageHasHiglights = true;
         insertHiglight(range, quote.id, onUnspportedSite);
         if (!document.getElementById('capture-tag-box') && !onUnspportedSite) {
