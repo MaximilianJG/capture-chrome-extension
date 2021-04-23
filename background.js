@@ -46,7 +46,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         type: 'basic',
         iconUrl: 'assets/capture.png',
         title: 'Captured Too Much Text',
-        message: 'Capture limits selections to 300 characters.',
+        message: 'Capture limits selections to 400 characters.',
       }, id => {});
     }
 
