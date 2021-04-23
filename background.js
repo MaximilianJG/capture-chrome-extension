@@ -39,6 +39,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         title: 'Capture is Disabled',
         message: 'Please open the popup menu to enable capturing.',
       }, id => {});
+      break;
     }
     
     case 'OVER_SELECT': {
@@ -48,6 +49,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         title: 'Captured Too Much Text',
         message: 'Capture limits selections to 400 characters.',
       }, id => {});
+      break;
     }
 
     case 'UNSUPPORTED_SITE': {
@@ -57,6 +59,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         title: `Capture does not fully Support ${request.site}`,
         message: 'Feel free to make captures, but please visit https://www.getcapture.org to comment and add tags.',
       }, id => {});
+      break;
     }
 
     case 'ERROR': {
@@ -66,6 +69,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         title: `Capture is still a work in progress`,
         message: 'Something went wrong, but rest assured we have noted the error in our logs and are trying to fix it. Thank you for your patience.',
       }, id => {});
+      break;
     }
 
     default:
