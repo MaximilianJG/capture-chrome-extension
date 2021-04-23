@@ -130,13 +130,13 @@ document.addEventListener('mouseup', e => {
   if (!window.getSelection || siteIsDisabled || globalDisabled|| onCapture) { return; } // return if browser doesn't support selection for some reason
   const selection = rangy.getSelection();
   const selectionText = selection.toString();
-  // if (selectionText && selectionText.length > 300) {
-  //   makeHighlightRed();
-  //   chrome.runtime.sendMessage({ type: "OVER_SELECT", });
-  //   return;
-  //  } else {
-  //    removeRedHighlight();
-  //  }
+  if (selectionText && selectionText.length > 400) {
+    makeHighlightRed();
+    chrome.runtime.sendMessage({ type: "OVER_SELECT", });
+    return;
+   } else {
+     removeRedHighlight();
+   }
   const range = selection.getRangeAt(0).cloneRange();
   if (isCaptureButton(e.target)) { // highlight button clicked
     e.stopPropagation();
